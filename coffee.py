@@ -1,12 +1,13 @@
 import numpy as np
 
 
-def simulate_morning() -> tuple[int, float]:
+def simulate_morning(rng: np.random.Generator | None = None) -> tuple[int, float]:
     opening_minutes = 4 * 60
     mean_time_between_arrivals = 3.0
     service_time = 3.0
 
-    rng = np.random.default_rng()
+    if rng is None:
+        rng = np.random.default_rng()
     arrival_times = []
     arrival_time = 0.0
 
@@ -30,6 +31,12 @@ def simulate_morning() -> tuple[int, float]:
 
 
 if __name__ == "__main__":
-    customers_served, average_wait = simulate_morning()
-    print(f"Customers served: {customers_served}")
+    simulation_count = 1000
+    rng = np.random.default_rng()
+    results = [simulate_morning(rng) for _ in range(simulation_count)]
+    customers_served = sum(customers for customers, _ in results)
+    total_wait = sum(customers * wait for customers, wait in results)
+    average_customers = customers_served / simulation_count
+    average_wait = total_wait / customers_served if customers_served else 0.0
+    print(f"Average customers per morning: {average_customers:.2f}")
     print(f"Average wait: {average_wait:.2f} minutes")

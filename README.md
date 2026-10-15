@@ -1,7 +1,8 @@
 # Coffee Shop Simulation
 
-Simulate a four-hour morning with random customer arrivals averaging one every
-three minutes and a barista who takes three minutes per order.
+Estimate average customer volume and wait time over 1,000 simulated four-hour
+mornings. Customers arrive randomly, averaging one every three minutes, and the
+barista takes three minutes per order.
 
 Install the dependency and run the simulation:
 
